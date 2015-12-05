@@ -1,0 +1,23 @@
+{
+  "name": "backbone.bootstrap",
+  "version": "1.0.0-pre1",
+  "description": "An extension to backbone to support easily bootstrapping data for models and collections.",
+  "scripts": {
+    "start": "brunch watch --server",
+    "build": "brunch build",
+    "release": "brunch build --production",
+    "test": "mocha-phantomjs public/test/index.html"
+  },
+  "author": "https://github.com/TruffleMuffin",
+  "dependencies": {
+    "brunch": ">= 1.8.0 < 1.9.0",
+    "coffee-script-brunch": ">= 1.0 < 1.8",
+    "javascript-brunch": ">= 1.0 < 1.8"
+  },
+  "devDependencies": {
+    "auto-reload-brunch": "1.8.1",
+    "mocha-phantomjs": "3.1.0",
+    "phantomjs": "1.9.1-0",
+    "uglify-js-brunch": "^1.7.8"
+  }
+}
