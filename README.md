@@ -19,3 +19,7 @@ You can use any number of server side techniques to include the following elemen
 ```
 
 All script tags with the type `application/json` and a `data-url` property and valid JSON will automatically be returned from any Backbone request that matches the url specified in the `data-url` property.
+
+## Contributors
+
+Special thanks go to https://github.com/ianllewellyn and https://github.com/apjones6 for help with this library.
