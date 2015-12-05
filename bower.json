@@ -9,8 +9,10 @@
   ],
   "license": "MIT",
   "ignore": [
-    "/client/*",
-    "!/client/assets",
+    "client",
+    ".gitignore",
+    "*.json",
+    "*.coffee",
     "node_modules",
     "bower_components",
     "public",
