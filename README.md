@@ -2,13 +2,13 @@
 
 An extension to backbone to support easily bootstrapping data for models and collections.
 
-# Installation
+## Installation
 
 Install as a bower component using `bower install --save backbone.bootstrap`.
 
 The application will automatically bind to the page when its included as part of your javascript output.
 
-# Usage
+## Usage
 
 You can use any number of server side techniques to include the following elements into the DOM that your javascript application is included on.
 
