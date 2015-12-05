@@ -48,7 +48,7 @@ module.exports = class Application
 		if method is "read"
 			if (data = @cache.get(cacheKey)) isnt null
 				# If the cache data is available, call appropriate success
-				# callbacks wit hthe data
+				# callbacks with the data
 				model.trigger("sync", model, data, options)
 				options.success(data)
 				# Return true as the function was successful
@@ -59,7 +59,7 @@ module.exports = class Application
 			# Delete the key from the cache
 			@cache.remove(cacheKey)
 
-		# If the item is not cache use the original backbone.sync
+		# If the item is not cached use the original backbone.sync
 		@BackboneSync.apply(this, [method, model, options])
 
 	# Override backbone.sync functionality to insert cached data when appropriate
