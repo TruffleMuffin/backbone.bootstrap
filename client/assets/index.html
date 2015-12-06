@@ -26,9 +26,9 @@
 	<script type="text/javascript">
 		var model = new Backbone.Model();
 		model.url = "/api/service/endpoint?skip=0&take=10";
-		model.fetch({ success: function(model) { console.log(model); }});
+		model.fetch({ success: function(model) { console.log(model.id); }});
 		model.url = "/api/service/endpoint?skip=1&take=10";
-		model.fetch({ success: function(model) { console.log(model); }});
+		model.fetch({ success: function(model) { console.log(model.id); }});
 	</script>
 </body>
 </html>
