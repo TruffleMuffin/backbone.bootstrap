@@ -5,9 +5,6 @@ module.exports = class Application
 		# Establish a cache in the public zone for testing purposes
 		@cache = new (require './cache')
 
-		# Initialize the application
-		@initialize()
-
 		# Allow the constructor to chain calls
 		return this
 
@@ -27,17 +24,20 @@ module.exports = class Application
 	# Isolate all bootstrap data and cache it
 	_cacheBootstrapData: ->
 		# Locate all matching script tags, and for each cache the value
-		$('script[type="application/json"][data-url]').each (index, element) =>
-			# Turn the element into a jQuery object to parse easily
-			bootstrap = $(element)
-			# Try to parse data as JSON
-			try
-				data = JSON.parse(bootstrap.html())
-				# Cache it
-				@cache.set bootstrap.data('url'), data
-			catch e
-				# Ignore this key as it isn't valid JSON data
-				console?.warn 'backbone.bootstrap - Invalid JSON for ' + bootstrap.data('url') + ' was not cached.'
+		$('script[type="application/json"][data-url]').each @_cacheElement
+
+	# Cache a DOM element
+	_cacheElement: (index, element) =>
+		# Turn the element into a jQuery object to parse easily
+		bootstrap = $(element)
+		# Try to parse data as JSON
+		try
+			data = JSON.parse(bootstrap.html())
+			# Cache it
+			@cache.set bootstrap.data('url'), data
+		catch e
+			# Ignore this key as it isn't valid JSON data
+			console?.warn 'backbone.bootstrap - Invalid JSON for ' + bootstrap.data('url') + ' was not cached.'
 
 	# The method that should replace Backbone.sync to pull items from cache
 	_cacheSync: (method, model, options) =>
