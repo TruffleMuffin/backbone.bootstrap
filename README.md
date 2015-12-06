@@ -23,3 +23,8 @@ All script tags with the type `application/json` and a `data-url` property and v
 ## Contributors
 
 Special thanks go to https://github.com/ianllewellyn and https://github.com/apjones6 for help with this library.
+
+## History
+
+* 1.0.0
+	* Functional bootstrap enhancements to backbone
