@@ -151,6 +151,22 @@ describe 'backbone.bootstrap/application', ->
 					sut._cacheSync 'read', model, options
 					options.success.should.have.been.calledWith data
 
+			describe 'when there are options provided for a query string', ->
+
+				data = null
+
+				beforeEach ->
+					options =
+						success: sinon.stub()
+						data:
+							query: 'value'
+					data = { prop: true }
+					sinon.stub sut.cache, 'get', -> data
+
+				it 'should retrieve the cache key', ->
+					sut._cacheSync 'read', model, options
+					sut.cache.get.should.have.been.calledWith '/api?query=value'
+
 			describe 'when there is no data in the cache', ->
 
 				beforeEach ->
