@@ -43,6 +43,9 @@ module.exports = class Application
 	_cacheSync: (method, model, options) =>
 		# Use the url to determine if the data is cached
 		cacheKey = options?.url ? _.result(model, 'url')
+		# If there is data in options, append to cacheKey as thats the querystring
+		if options?.data?
+			cacheKey += "?" + jQuery.param(options.data)
 
 		# Identify if this is a backbone sync that is cached
 		if method is "read"
