@@ -1,32 +1,36 @@
 {
-  "name": "backbone.bootstrap",
-  "version": "1.0.0",
-  "authors": [
-    "https://github.com/TruffleMuffin"
-  ],
-  "main": [
-    "lib/backbone.bootstrap.js"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "client",
-    ".gitignore",
-    "*.json",
-    "*.coffee",
-    "node_modules",
-    "bower_components",
-    "public",
-    "server",
-    "test"
-  ],
-  "dependencies": {
-    "backbone": ">= 1.0.0",
-    "jquery": ">= 1.10.2",
-    "lodash": ">= 2.4.1"
-  },
-  "overrides": {
-    "lodash": {
-      "main": "dist/lodash.underscore.js"
-    }
-  }
+	"name": "backbone.bootstrap",
+	"version": "1.0.1",
+	"authors": [
+		"https://github.com/TruffleMuffin"
+	],
+	"main": [
+		"lib/backbone.bootstrap.js"
+	],
+	"license": "MIT",
+	"ignore": [
+		"client",
+		".gitignore",
+		"*.json",
+		"*.coffee",
+		"node_modules",
+		"bower_components",
+		"public",
+		"server",
+		"test"
+	],
+	"keywords":[
+		"backbone",
+		"bootstrap"
+	],
+	"dependencies": {
+		"backbone": ">= 1.0.0",
+		"jquery": ">= 1.10.2",
+		"lodash": ">= 2.4.1"
+	},
+	"overrides": {
+		"lodash": {
+			"main": "dist/lodash.underscore.js"
+		}
+	}
 }

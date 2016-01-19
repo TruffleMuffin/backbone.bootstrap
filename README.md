@@ -26,5 +26,8 @@ Special thanks go to https://github.com/ianllewellyn and https://github.com/apjo
 
 ## History
 
+* 1.0.1
+	* Preventing DOM order for bootstrap elements preventing their inclusion in cache
+
 * 1.0.0
 	* Functional bootstrap enhancements to backbone

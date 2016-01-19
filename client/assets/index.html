@@ -24,11 +24,13 @@
 	<script src="/javascripts/vendor.js"></script>
 	<script src="/javascripts/backbone.bootstrap.js"></script>
 	<script type="text/javascript">
-		var model = new Backbone.Model();
-		model.url = "/api/service/endpoint?skip=0&take=10";
-		model.fetch({ success: function(model) { console.log(model.id); }});
-		model.url = "/api/service/endpoint?skip=1&take=10";
-		model.fetch({ success: function(model) { console.log(model.id); }});
+		$(document).ready(function() {
+			var model = new Backbone.Model();
+			model.url = "/api/service/endpoint?skip=0&take=10";
+			model.fetch({ success: function(model) { console.log(model.id); }});
+			model.url = "/api/service/endpoint?skip=1&take=10";
+			model.fetch({ success: function(model) { console.log(model.id); }});
+		});
 	</script>
 </body>
 </html>

@@ -2,4 +2,5 @@
 # utility.
 
 # Initialize the application
-(new (require 'backbone.bootstrap/application')).initialize()
+$(document).ready ->
+	(new (require 'backbone.bootstrap/application')).initialize()
