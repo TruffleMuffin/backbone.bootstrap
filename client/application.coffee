@@ -54,6 +54,9 @@ module.exports = class Application
 				# callbacks with the data
 				model.trigger("sync", model, data, options)
 				options.success(data)
+				options.complete?()
+				# It should remove the cache item, as we don't want to breaking polling type use cases
+				@cache.remove(cacheKey)
 				# Return true as the function was successful
 				return true
 
