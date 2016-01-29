@@ -143,6 +143,10 @@ describe 'backbone.bootstrap/application', ->
 					sut._cacheSync 'read', model, options
 					sut.cache.get.should.have.been.calledWith '/api'
 
+				it 'should remove the cache key', ->
+					sut._cacheSync 'read', model, options
+					sut.cache.remove.should.have.been.calledWith '/api'
+
 				it 'should trigger sync with the cache data', ->
 					sut._cacheSync 'read', model, options
 					model.trigger.should.have.been.calledWith 'sync', model, data, options
@@ -166,6 +170,21 @@ describe 'backbone.bootstrap/application', ->
 				it 'should retrieve the cache key', ->
 					sut._cacheSync 'read', model, options
 					sut.cache.get.should.have.been.calledWith '/api?query=value'
+
+			describe 'when there is a complete callback in the options', ->
+
+				data = null
+
+				beforeEach ->
+					options =
+						success: sinon.stub()
+						complete: sinon.stub()
+					data = { prop: true }
+					sinon.stub sut.cache, 'get', -> data
+
+				it 'should call complete', ->
+					sut._cacheSync 'read', model, options
+					options.complete.should.have.been.called
 
 			describe 'when there is no data in the cache', ->
 
