@@ -26,7 +26,7 @@ Special thanks go to https://github.com/ianllewellyn and https://github.com/apjo
 
 ## History
 
-* patch
+* 1.0.2
 	* Preventing cache items being used more than once. This will allow polling type use cases
 	* Ensuring that the complete callback is called when provided
 
