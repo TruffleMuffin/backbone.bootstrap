@@ -34,7 +34,7 @@ module.exports = class Application
 		try
 			data = JSON.parse(bootstrap.html())
 			# Cache it
-			@cache.set bootstrap.data('url'), data
+			@cache.set bootstrap.data('url'), { value: data, usage: bootstrap.data('usage') ? 'once' }
 		catch e
 			# Ignore this key as it isn't valid JSON data
 			console?.warn 'backbone.bootstrap - Invalid JSON for ' + bootstrap.data('url') + ' was not cached.'
@@ -52,11 +52,11 @@ module.exports = class Application
 			if (data = @cache.get(cacheKey)) isnt null
 				# If the cache data is available, call appropriate success
 				# callbacks with the data
-				model.trigger("sync", model, data, options)
-				options.success(data)
+				model.trigger("sync", model, data.value, options)
+				options.success(data.value)
 				options.complete?()
 				# It should remove the cache item, as we don't want to breaking polling type use cases
-				@cache.remove(cacheKey)
+				@cache.remove(cacheKey) if data.usage is 'once'
 				# Return true as the function was successful
 				return true
 

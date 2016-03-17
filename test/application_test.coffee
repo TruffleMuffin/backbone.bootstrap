@@ -136,7 +136,7 @@ describe 'backbone.bootstrap/application', ->
 				data = null
 
 				beforeEach ->
-					data = { prop: true }
+					data = { value: { prop: true }, usage: 'once' }
 					sinon.stub sut.cache, 'get', -> data
 
 				it 'should retrieve the cache key', ->
@@ -149,11 +149,32 @@ describe 'backbone.bootstrap/application', ->
 
 				it 'should trigger sync with the cache data', ->
 					sut._cacheSync 'read', model, options
-					model.trigger.should.have.been.calledWith 'sync', model, data, options
+					model.trigger.should.have.been.calledWith 'sync', model, data.value, options
 
 				it 'should trigger the success callback', ->
 					sut._cacheSync 'read', model, options
-					options.success.should.have.been.calledWith data
+					options.success.should.have.been.calledWith data.value
+
+				describe 'when the usage is forever', ->
+
+					beforeEach ->
+						data = { value: { prop: true }, usage: 'forever' }
+
+					it 'should retrieve the cache key', ->
+						sut._cacheSync 'read', model, options
+						sut.cache.get.should.have.been.calledWith '/api'
+
+					it 'should NOT remove the cache key', ->
+						sut._cacheSync 'read', model, options
+						sut.cache.remove.should.not.have.been.calledWith '/api'
+
+					it 'should trigger sync with the cache data', ->
+						sut._cacheSync 'read', model, options
+						model.trigger.should.have.been.calledWith 'sync', model, data.value, options
+
+					it 'should trigger the success callback', ->
+						sut._cacheSync 'read', model, options
+						options.success.should.have.been.calledWith data.value
 
 			describe 'when there are options provided for a query string', ->
 
