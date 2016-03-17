@@ -20,11 +20,20 @@ You can use any number of server side techniques to include the following elemen
 
 All script tags with the type `application/json` and a `data-url` property and valid JSON will automatically be returned from any Backbone request that matches the url specified in the `data-url` property.
 
+### Options
+
+On any identified and valid script tag, other attributes can be specified in the format data-{attribute} from the list below.
+
+* usage - (default: once) one of these values 'once', 'forever'. Determines for how long the bootstrap value will be returned.
+
 ## Contributors
 
 Special thanks go to https://github.com/ianllewellyn and https://github.com/apjones6 for help with this library.
 
 ## History
+
+* patch
+	* Supporting usage option on bootstrap data for greater flexibility
 
 * 1.0.2
 	* Preventing cache items being used more than once. This will allow polling type use cases
