@@ -32,7 +32,7 @@ Special thanks go to https://github.com/ianllewellyn and https://github.com/apjo
 
 ## History
 
-* patch
+* 1.1.1
 	* Fixing handling of query string urls created by backbone models/collections
 
 * 1.1.0
