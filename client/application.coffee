@@ -45,7 +45,13 @@ module.exports = class Application
 		cacheKey = options?.url ? _.result(model, 'url')
 		# If there is data in options, append to cacheKey as thats the querystring
 		if options?.data?
-			cacheKey += "?" + jQuery.param(options.data)
+			# Accomodate query string values already in the cache key
+			if cacheKey.indexOf('?') < 0
+				cacheKey += "?"
+			else
+				cacheKey += "&"
+			# Add the param data now an appropriate prefix is applied
+			cacheKey += jQuery.param(options.data)
 
 		# Identify if this is a backbone sync that is cached
 		if method is "read"

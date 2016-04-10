@@ -192,6 +192,13 @@ describe 'backbone.bootstrap/application', ->
 					sut._cacheSync 'read', model, options
 					sut.cache.get.should.have.been.calledWith '/api?query=value'
 
+				describe 'when the models url returns a query string parameter already', ->
+
+					it 'should should combine the query strings', ->
+						model.url = "/api?sort=desc"
+						sut._cacheSync 'read', model, options
+						sut.cache.get.should.have.been.calledWith '/api?sort=desc&query=value'
+
 			describe 'when there is a complete callback in the options', ->
 
 				data = null
