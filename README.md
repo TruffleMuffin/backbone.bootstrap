@@ -32,6 +32,9 @@ Special thanks go to https://github.com/ianllewellyn and https://github.com/apjo
 
 ## History
 
+* 1.1.1
+	* Fixing handling of query string urls created by backbone models/collections
+
 * 1.1.0
 	* Supporting usage option on bootstrap data for greater flexibility
 
