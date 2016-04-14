@@ -169,6 +169,23 @@ describe 'backbone.bootstrap/application', ->
 						sut._cacheSync options
 						options.success.should.have.been.calledWith data.value
 
+				describe 'when there is a jquery cache busting value applied in the query string', ->
+
+						beforeEach ->
+							options.url = "/api?query=test&_=1460647367784"
+
+						it 'should retrieve the cache key', ->
+							sut._cacheSync options
+							sut.cache.get.should.have.been.calledWith '/api?query=test'
+
+						it 'should remove the cache key', ->
+							sut._cacheSync options
+							sut.cache.remove.should.have.been.calledWith '/api?query=test'
+
+						it 'should trigger the success callback', ->
+							sut._cacheSync options
+							options.success.should.have.been.calledWith data.value
+
 			describe 'when there are options provided for a query string', ->
 
 				data = null
@@ -188,10 +205,10 @@ describe 'backbone.bootstrap/application', ->
 
 				describe 'when the data value is just a string', ->
 
-				it 'should retrieve the cache key', ->
-					options.data = "query=value"
-					sut._cacheSync options
-					sut.cache.get.should.have.been.calledWith '/api?query=value'
+					it 'should retrieve the cache key', ->
+						options.data = "query=value"
+						sut._cacheSync options
+						sut.cache.get.should.have.been.calledWith '/api?query=value'
 
 				describe 'when the models url returns a query string parameter already', ->
 
