@@ -51,7 +51,7 @@ module.exports = class Application
 			else
 				cacheKey += "&"
 			# Add the param data now an appropriate prefix is applied
-			cacheKey += jQuery.param(options.data)
+			cacheKey += if _.isString(options.data) then options.data else jQuery.param(options.data)
 
 		# Identify if this is a Backbone.ajax that can be cached
 		method = options.type?.toLowerCase()
