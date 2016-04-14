@@ -32,7 +32,7 @@ Special thanks go to https://github.com/ianllewellyn and https://github.com/apjo
 
 ## History
 
-* major
+* 2.0.0
 	* Some libraries implement their own sync methods. This meant support wasn't complete. Changed internal implementation to proxy Backbone.ajax instead.
 
 * 1.1.1
