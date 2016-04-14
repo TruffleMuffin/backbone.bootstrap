@@ -32,7 +32,7 @@ Special thanks go to https://github.com/ianllewellyn and https://github.com/apjo
 
 ## History
 
-* patch
+* 2.0.3
 	* Fixing cache keys being ignored when jQuery cache busting is applied
 
 * 2.0.2
