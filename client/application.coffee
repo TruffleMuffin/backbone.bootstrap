@@ -53,6 +53,9 @@ module.exports = class Application
 			# Add the param data now an appropriate prefix is applied
 			cacheKey += if _.isString(options.data) then options.data else jQuery.param(options.data)
 
+		# clean the cache key of any jQuery busting values. Format is _=<TIMESTAMP>
+		cacheKey = cacheKey.replace(/((\?|&)_=([0-9]+))/ig, "")
+
 		# Identify if this is a Backbone.ajax that can be cached
 		method = options.type?.toLowerCase()
 		if method is "get"

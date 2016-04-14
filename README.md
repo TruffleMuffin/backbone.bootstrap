@@ -32,6 +32,9 @@ Special thanks go to https://github.com/ianllewellyn and https://github.com/apjo
 
 ## History
 
+* patch
+	* Fixing cache keys being ignored when jQuery cache busting is applied
+
 * 2.0.2
 	* Ensuring complete method is called as well as success
 
