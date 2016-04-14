@@ -200,6 +200,22 @@ describe 'backbone.bootstrap/application', ->
 						sut._cacheSync options
 						sut.cache.get.should.have.been.calledWith '/api?sort=desc&query=value'
 
+			describe 'when there is a complete callback in the options', ->
+
+				data = null
+
+				beforeEach ->
+					options = _.extend options,
+						type: 'GET'
+						success: sinon.stub()
+						complete: sinon.stub()
+					data = { prop: true }
+					sinon.stub sut.cache, 'get', -> data
+
+				it 'should call complete', ->
+					sut._cacheSync options
+					options.complete.should.have.been.called
+
 			describe 'when there is no data in the cache', ->
 
 				beforeEach ->

@@ -59,7 +59,8 @@ module.exports = class Application
 			if (data = @cache.get(cacheKey)) isnt null
 				# If the cache data is available, call appropriate success
 				# callbacks with the data
-				options.success(data.value)
+				options.success?(data.value)
+				options.complete?(data.value)
 				# It should remove the cache item, as we don't want to breaking polling type use cases
 				@cache.remove(cacheKey) if data.usage is 'once'
 				# Return true as the function was successful
