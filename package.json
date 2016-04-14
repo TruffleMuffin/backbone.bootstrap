@@ -1,6 +1,6 @@
 {
   "name": "backbone.bootstrap",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "An extension to backbone to support easily bootstrapping data for models and collections.",
   "scripts": {
     "start": "brunch watch --server",
