@@ -186,6 +186,13 @@ describe 'backbone.bootstrap/application', ->
 					sut._cacheSync options
 					sut.cache.get.should.have.been.calledWith '/api?query=value'
 
+				describe 'when the data value is just a string', ->
+
+				it 'should retrieve the cache key', ->
+					options.data = "query=value"
+					sut._cacheSync options
+					sut.cache.get.should.have.been.calledWith '/api?query=value'
+
 				describe 'when the models url returns a query string parameter already', ->
 
 					it 'should should combine the query strings', ->
