@@ -101,58 +101,55 @@ describe 'backbone.bootstrap/application', ->
 
 	describe '_cacheSync', ->
 
-		model = options = null
+		options = null
 
 		beforeEach ->
-			model = new Backbone.Model()
-			model.url = "/api"
-			model.trigger = sinon.stub()
-			options = { success: sinon.stub() }
+			options = { success: sinon.stub(), url: '/api' }
 			sut.BackboneSync = sinon.stub()
 			sinon.stub sut.cache, 'remove'
 
-		describe 'method is create', ->
+		describe 'method is post', ->
 
 			it 'should call the original backbone sync', ->
-				sut._cacheSync 'create', model, options
-				sut.BackboneSync.should.have.been.calledWith 'create', model, options
+				options.type = 'POST'
+				sut._cacheSync options
+				sut.BackboneSync.should.have.been.calledWith options
 
 		describe 'method is delete', ->
 
 			it 'should remove the cache key', ->
-				sut._cacheSync 'delete', model, options
+				options.type = 'DELETE'
+				sut._cacheSync options
 				sut.cache.remove.should.have.been.calledWith '/api'
 
-		describe 'method is update', ->
+		describe 'method is put', ->
 
 			it 'should remove the cache key', ->
-				sut._cacheSync 'delete', model, options
+				options.type = 'PUT'
+				sut._cacheSync options
 				sut.cache.remove.should.have.been.calledWith '/api'
 
-		describe 'method is read', ->
+		describe 'method is get', ->
 
 			describe 'when there is data in the cache', ->
 
 				data = null
 
 				beforeEach ->
+					options.type = "GET"
 					data = { value: { prop: true }, usage: 'once' }
 					sinon.stub sut.cache, 'get', -> data
 
 				it 'should retrieve the cache key', ->
-					sut._cacheSync 'read', model, options
+					sut._cacheSync options
 					sut.cache.get.should.have.been.calledWith '/api'
 
 				it 'should remove the cache key', ->
-					sut._cacheSync 'read', model, options
+					sut._cacheSync options
 					sut.cache.remove.should.have.been.calledWith '/api'
 
-				it 'should trigger sync with the cache data', ->
-					sut._cacheSync 'read', model, options
-					model.trigger.should.have.been.calledWith 'sync', model, data.value, options
-
 				it 'should trigger the success callback', ->
-					sut._cacheSync 'read', model, options
+					sut._cacheSync options
 					options.success.should.have.been.calledWith data.value
 
 				describe 'when the usage is forever', ->
@@ -161,19 +158,15 @@ describe 'backbone.bootstrap/application', ->
 						data = { value: { prop: true }, usage: 'forever' }
 
 					it 'should retrieve the cache key', ->
-						sut._cacheSync 'read', model, options
+						sut._cacheSync options
 						sut.cache.get.should.have.been.calledWith '/api'
 
 					it 'should NOT remove the cache key', ->
-						sut._cacheSync 'read', model, options
+						sut._cacheSync options
 						sut.cache.remove.should.not.have.been.calledWith '/api'
 
-					it 'should trigger sync with the cache data', ->
-						sut._cacheSync 'read', model, options
-						model.trigger.should.have.been.calledWith 'sync', model, data.value, options
-
 					it 'should trigger the success callback', ->
-						sut._cacheSync 'read', model, options
+						sut._cacheSync options
 						options.success.should.have.been.calledWith data.value
 
 			describe 'when there are options provided for a query string', ->
@@ -181,7 +174,8 @@ describe 'backbone.bootstrap/application', ->
 				data = null
 
 				beforeEach ->
-					options =
+					options = _.extend options,
+						type: "GET"
 						success: sinon.stub()
 						data:
 							query: 'value'
@@ -189,30 +183,15 @@ describe 'backbone.bootstrap/application', ->
 					sinon.stub sut.cache, 'get', -> data
 
 				it 'should retrieve the cache key', ->
-					sut._cacheSync 'read', model, options
+					sut._cacheSync options
 					sut.cache.get.should.have.been.calledWith '/api?query=value'
 
 				describe 'when the models url returns a query string parameter already', ->
 
 					it 'should should combine the query strings', ->
-						model.url = "/api?sort=desc"
-						sut._cacheSync 'read', model, options
+						options.url = "/api?sort=desc"
+						sut._cacheSync options
 						sut.cache.get.should.have.been.calledWith '/api?sort=desc&query=value'
-
-			describe 'when there is a complete callback in the options', ->
-
-				data = null
-
-				beforeEach ->
-					options =
-						success: sinon.stub()
-						complete: sinon.stub()
-					data = { prop: true }
-					sinon.stub sut.cache, 'get', -> data
-
-				it 'should call complete', ->
-					sut._cacheSync 'read', model, options
-					options.complete.should.have.been.called
 
 			describe 'when there is no data in the cache', ->
 
@@ -220,25 +199,25 @@ describe 'backbone.bootstrap/application', ->
 					sinon.stub sut.cache, 'get', -> null
 
 				it 'should call the original backbone sync', ->
-					sut._cacheSync 'read', model, options
-					sut.BackboneSync.should.have.been.calledWith 'read', model, options
+					sut._cacheSync options
+					sut.BackboneSync.should.have.been.calledWith options
 
 	describe '_overrideBackboneSync', ->
 
-		sync = proxySync = null
+		ajax = proxySync = null
 
 		beforeEach ->
-			sync = Backbone.sync
+			ajax = Backbone.ajax
 			proxySync = sinon.stub()
-			Backbone.sync = proxySync
+			Backbone.ajax = proxySync
 
 		afterEach ->
-			Backbone.sync = sync
+			Backbone.ajax = ajax
 
-		it 'should save the original backbone.sync method on the instance', ->
+		it 'should save the original backbone.ajax method on the instance', ->
 			sut._overrideBackboneSync()
 			sut.BackboneSync.should.equal proxySync
 
-		it 'should replace backbone.sync with _cacheSync', ->
+		it 'should replace backbone.ajax with _cacheSync', ->
 			sut._overrideBackboneSync()
-			Backbone.sync.should.equal sut._cacheSync
+			Backbone.ajax.should.equal sut._cacheSync
