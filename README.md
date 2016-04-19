@@ -32,7 +32,7 @@ Special thanks go to https://github.com/ianllewellyn and https://github.com/apjo
 
 ## History
 
-* patch
+* 2.0.4
 	* Preventing forever usage from allowing reference updates to cache objects
 
 * 2.0.3
