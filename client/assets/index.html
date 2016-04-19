@@ -37,7 +37,13 @@
 			model.fetch({ success: function(model) { console.log(model.id); }});
 			model.fetch({ success: function(model) { console.log(model.id); }});
 			model.url = "/api/service/endpoint?skip=2&take=10";
+			var temp = model.parse;
+			model.parse = function(response) {
+				response.id = "BROKEN";
+				return response;
+			};
 			model.fetch({ success: function(model) { console.log(model.id); }});
+			model.parse = temp;
 			model.fetch({ success: function(model) { console.log(model.id); }});
 			model.fetch({ success: function(model) { console.log(model.id); }});
 		});
