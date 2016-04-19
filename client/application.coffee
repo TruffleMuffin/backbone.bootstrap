@@ -72,8 +72,8 @@ module.exports = class Application
 				# If the cache data is available, call appropriate success
 				# callbacks with the data
 				value = if _.isFunction(data.value) then data.value() else data.value
-				options.success?(value)
-				options.complete?(value)
+				# Defer the execute as a callback to prevent out of order processing of events
+				_.defer @_executeCallback, options, value
 				# It should remove the cache item, as we don't want to breaking polling type use cases
 				@cache.remove(cacheKey) if data.usage is 'once'
 				# Return true as the function was successful
@@ -86,6 +86,10 @@ module.exports = class Application
 
 		# If the item is not cached use the original backbone.ajax
 		@BackboneSync.apply(this, [options])
+
+	_executeCallback: (options, value) ->
+		options.success?(value)
+		options.complete?(value)
 
 	# Override backbone.ajax functionality to insert cached data when appropriate
 	_overrideBackboneSync: ->

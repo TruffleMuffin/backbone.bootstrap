@@ -32,6 +32,9 @@ Special thanks go to https://github.com/ianllewellyn and https://github.com/apjo
 
 ## History
 
+* 2.0.5
+	* Changes to how _cacheSync executes to be asynchronous
+
 * 2.0.4
 	* Preventing forever usage from allowing reference updates to cache objects
 
