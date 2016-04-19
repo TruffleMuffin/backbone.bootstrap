@@ -32,7 +32,7 @@ Special thanks go to https://github.com/ianllewellyn and https://github.com/apjo
 
 ## History
 
-* patch
+* 2.0.5
 	* Changes to how _cacheSync executes to be asynchronous
 
 * 2.0.4
