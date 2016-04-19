@@ -154,8 +154,13 @@ describe 'backbone.bootstrap/application', ->
 
 				describe 'when the usage is forever', ->
 
+					value = null
+
 					beforeEach ->
-						data = { value: { prop: true }, usage: 'forever' }
+						value = { prop: true }
+						data =
+							value: -> return value
+							usage: 'forever'
 
 					it 'should retrieve the cache key', ->
 						sut._cacheSync options
@@ -167,7 +172,7 @@ describe 'backbone.bootstrap/application', ->
 
 					it 'should trigger the success callback', ->
 						sut._cacheSync options
-						options.success.should.have.been.calledWith data.value
+						options.success.should.have.been.calledWith value
 
 				describe 'when there is a jquery cache busting value applied in the query string', ->
 
